@@ -1,14 +1,11 @@
-name: Java CI with Maven
-
+name: Selenium Java CI with Maven
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -19,12 +16,13 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: Install Chrome
-      run: |
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i google-chrome-stable_current_amd64.deb
-        sudo apt-get -f install
-    - name: Build with Maven
-      run: mvn clean test -Denvironment.browser=chrome -Dsurefire.suiteXmlFiles=src/test/resources/suites/testng.xml --file pom.xml
-
-    
+    - name: Install Google Chrome
+      run: | 
+        ls -R
+        chmod +x ./scripts/InstallChrome.sh
+        ./scripts/InstallChrome.sh
+    - name: Run Tests
+      run: mvn clean test 
+        -Dbrowsermode.headless=true 
+        -Dsurefire.suiteXmlFiles=src/test/resources/suites/computeEngineTests.xml 
+        --file pom.xml

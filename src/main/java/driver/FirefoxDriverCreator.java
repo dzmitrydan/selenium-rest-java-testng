@@ -4,7 +4,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-
 import java.nio.file.Paths;
 
 public class FirefoxDriverCreator implements WebDriverFactoryMethod {
@@ -17,7 +16,10 @@ public class FirefoxDriverCreator implements WebDriverFactoryMethod {
         options.addPreference("browser.download.dir", downloadPath);
         options.addPreference("browser.download.folderList", 2);
         options.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream");
-        //options.setHeadless(true);
+        options.setHeadless(browserModeHeadless);
+
+        System.out.println(browserModeHeadless);
+
         return new FirefoxDriver(options);
     }
 }

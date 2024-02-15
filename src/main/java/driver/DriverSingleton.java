@@ -3,16 +3,12 @@ package driver;
 import org.openqa.selenium.WebDriver;
 import utility.PropertyFileReader;
 
-import java.util.ResourceBundle;
-
-// Lazy Initialization
 public class DriverSingleton {
     private static WebDriver driver;
 
     private DriverSingleton() {
     }
 
-    // Thread Safe Singleton
     public static synchronized WebDriver getDriver() {
         if (null == driver) {
             WebDriverFactoryMethod creator;

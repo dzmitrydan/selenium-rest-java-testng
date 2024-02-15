@@ -11,4 +11,11 @@ public class CalculatorTest extends BaseTest {
                 .getGreetingTitleText();
         Assert.assertEquals(actualGreetingTitleText, expectedGreetingTitleText);
     }
+
+    @Test
+    public void checkPageUrl() {
+        String expectedUrl = "https://cloud.google.com/products/calculator/";
+        String actualUrl = new CalculatorPage(driver).openPage().getPageUrl();
+        Assert.assertEquals(actualUrl, expectedUrl);
+    }
 }

@@ -17,10 +17,10 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Install Google Chrome
-      run: | 
-        ls -R
-        chmod +x ./scripts/InstallChrome.sh
-        ./scripts/InstallChrome.sh
+      run: |
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
+        sudo apt-get -f install
     - name: Run Tests
       run: mvn clean test 
         -Dbrowsermode.headless=true 

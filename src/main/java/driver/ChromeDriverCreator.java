@@ -14,20 +14,15 @@ public class ChromeDriverCreator implements WebDriverFactoryMethod {
 
     @Override
     public WebDriver createWebDriver() {
-
         WebDriverManager.chromedriver().setup();
-        //for Chrome version >= 115
-        //settingWebDriverBySystemProperty();
-
         String downloadPath = Paths.get("target/download").toFile().getAbsolutePath();
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", downloadPath);
         options.setExperimentalOption("prefs", prefs);
-
-        //options.setExperimentalOption("useAutomationExtension", false);
-        //options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
-
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
         return new ChromeDriver(options);
     }
 }

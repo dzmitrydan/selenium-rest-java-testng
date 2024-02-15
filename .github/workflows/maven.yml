@@ -21,5 +21,9 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean test -Dbrowser=environment.browser -Dsurefire.suiteXmlFiles=src/test/resources/suites/testng.xml --file pom.xml
-    
+    - name: Install Chrome
+      run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt-get -f install
     

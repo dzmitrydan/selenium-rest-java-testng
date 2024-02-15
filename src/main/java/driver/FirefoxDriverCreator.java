@@ -17,6 +17,7 @@ public class FirefoxDriverCreator implements WebDriverFactoryMethod {
         options.addPreference("browser.download.dir", downloadPath);
         options.addPreference("browser.download.folderList", 2);
         options.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream");
+        //options.setHeadless(true);
         return new FirefoxDriver(options);
     }
 }

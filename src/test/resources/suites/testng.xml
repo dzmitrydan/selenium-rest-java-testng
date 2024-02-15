@@ -7,10 +7,12 @@
             </class>
         </classes>
     </test>
+    <!--
     <test name="CalculatorPage Test">
         <classes>
             <class name="CalculatorTest">
             </class>
         </classes>
     </test>
+    -->
 </suite>

@@ -40,4 +40,8 @@ public class CalculatorPage extends AbstractPage {
         wait.until(ExpectedConditions.titleIs("Google Cloud Pricing Calculator"));
         return new EstimateComputeEnginePage(driver);
     }
+
+    public String getPageUrl() {
+        return driver.getCurrentUrl();
+    }
 }

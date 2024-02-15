@@ -1,7 +1,6 @@
 package driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -22,7 +21,9 @@ public class ChromeDriverCreator implements WebDriverFactoryMethod {
         options.setExperimentalOption("prefs", prefs);
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        //options.addArguments("--headless");
+        options.addArguments("--ignore-certificate-errors");
+        options.addArguments("--allow-running-insecure-content");
+        options.addArguments("--window-size=1920,1080");
         options.setHeadless(true);
         return new ChromeDriver(options);
     }

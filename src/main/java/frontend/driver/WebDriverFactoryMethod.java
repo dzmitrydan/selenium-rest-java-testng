@@ -1,4 +1,4 @@
-package driver;
+package frontend.driver;
 
 import org.openqa.selenium.WebDriver;
 

@@ -3,10 +3,7 @@
 <suite name="ComputeEngine Tests" thread-count="2" parallel="classes">
     <test name="CalculatorPage Test">
         <classes>
-            <class name="frontend.CalculatorTest">
-                <methods>
-                    <include name="checkPageUrl"/>
-                </methods>
+            <class name="backend.ReqResTest">
             </class>
         </classes>
     </test>

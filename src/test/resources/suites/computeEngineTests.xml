@@ -3,13 +3,13 @@
 <suite name="ComputeEngine Tests" thread-count="2" parallel="classes">
     <test name="ComputeEnginePage Test">
         <classes>
-            <class name="ComputeEngineTest">
+            <class name="frontend.ComputeEngineTest">
             </class>
         </classes>
     </test>
     <test name="CalculatorPage Test">
         <classes>
-            <class name="CalculatorTest">
+            <class name="frontend.CalculatorTest">
             </class>
         </classes>
     </test>

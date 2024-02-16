@@ -1,4 +1,4 @@
-name: Selenium Java CI with Maven
+name: Selenium API Java CI with Maven
 on:
   push:
     branches: [ "main" ]
@@ -20,8 +20,12 @@ jobs:
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo dpkg -i google-chrome-stable_current_amd64.deb
         sudo apt-get -f install
-    - name: Run Tests
-      run: mvn clean test 
-        -Dbrowsermode.headless=true 
-        -Dsurefire.suiteXmlFiles=src/test/resources/suites/computeEngineTests.xml 
+    - name: Run UI (Selenium) Tests
+      run: mvn clean test
+        -Dbrowsermode.headless=true
+        -Dsurefire.suiteXmlFiles=src/test/resources/suites/allTests.xml
+        --file pom.xml
+    - name: Run API (Rest Assured) Tests
+      run: mvn clean test
+        -Dsurefire.suiteXmlFiles=src/test/resources/suites/apiTests.xml
         --file pom.xml

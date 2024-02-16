@@ -1,6 +1,8 @@
+package frontend;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import page.computeengine.CalculatorPage;
+import frontend.page.computeengine.CalculatorPage;
 
 public class CalculatorTest extends BaseTest {
 

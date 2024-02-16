@@ -1,7 +1,7 @@
-package driver;
+package frontend.driver;
 
 import org.openqa.selenium.WebDriver;
-import utility.PropertyFileReader;
+import frontend.utility.PropertyFileReader;
 
 public class DriverSingleton {
     private static WebDriver driver;

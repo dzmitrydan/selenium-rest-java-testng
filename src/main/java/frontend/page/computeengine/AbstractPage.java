@@ -1,4 +1,4 @@
-package page.computeengine;
+package frontend.page.computeengine;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

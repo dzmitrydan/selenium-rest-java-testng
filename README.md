@@ -1,4 +1,4 @@
-# Selenium Project
+# Selenium and GitHub Actions
 ## Description
 - Selenium
 - Rest Assured

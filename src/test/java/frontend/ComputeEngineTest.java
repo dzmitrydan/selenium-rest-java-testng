@@ -31,11 +31,7 @@ public class ComputeEngineTest extends BaseTest {
                 .clickDownloadCsv();
         double actualPrice = CSVFileReader.getPriceFromCsv();
         double expectedPrice = estimateComputeEnginePage.getCost();
-        try {
-            CSVFileReader.deleteAllFilesInDirectory();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        CSVFileReader.deleteAllFilesInDirectory();
         Assert.assertEquals(actualPrice, expectedPrice);
     }
 
@@ -48,7 +44,8 @@ public class ComputeEngineTest extends BaseTest {
                 .openComputeEngineSection()
                 .inputNumberOfInstances(numberOfInstances)
                 .selectOperatingSystem(operatingSystem);
-        double expectedPrice = estimateComputeEnginePage.getCost();
+        double expectedPrice = estimateComputeEnginePage
+                .getCost();
         double actualPrice = estimateComputeEnginePage
                 .clickOpenDetailedView()
                 .getCost();

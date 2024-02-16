@@ -14,6 +14,7 @@ public class CostEstimateSummaryPage extends AbstractPage {
     }
 
     public double getCost() {
+        waitForChangingData(2);
         return Double.parseDouble(cost.getText().replace("$", ""));
     }
 }

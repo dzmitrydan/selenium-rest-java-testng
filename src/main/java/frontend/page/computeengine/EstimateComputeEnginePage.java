@@ -63,6 +63,7 @@ public class EstimateComputeEnginePage extends AbstractPage {
     }
 
     public double getCost() {
+        waitForChangingData(2);
         return Double.parseDouble(cost.getText().replace("$", ""));
     }
 
@@ -71,13 +72,5 @@ public class EstimateComputeEnginePage extends AbstractPage {
         driver.findElement(By.xpath(provisioningModelXpath)).click();
         wait.until(ExpectedConditions.visibilityOf(costUpdatedBanner));
         return this;
-    }
-
-    private void waitForChangingData(int sec) {
-        try {
-            TimeUnit.SECONDS.sleep(sec);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

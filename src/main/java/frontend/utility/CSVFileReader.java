@@ -15,7 +15,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CSVFileReader {
-
     private static final String DIR_PATH = "target/download";
 
     public static double getPriceFromCsv() {
@@ -40,44 +39,44 @@ public class CSVFileReader {
         return 0.0;
     }
 
-    public static void deleteAllFilesInDirectory() throws IOException {
+    public static void deleteAllFilesInDirectory(){
         Path path = Paths.get(DIR_PATH);
 
         if (Files.exists(path) && Files.isDirectory(path)) {
-            Files.walkFileTree(path, EnumSet.noneOf(FileVisitOption.class), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Files.delete(file);
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                    // Handle failure to visit a file if necessary
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                    if (exc == null) {
-                        Files.delete(dir);
+            try {
+                Files.walkFileTree(path, EnumSet.noneOf(FileVisitOption.class), Integer.MAX_VALUE, new SimpleFileVisitor<>() {
+                    @Override
+                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                        Files.delete(file);
                         return FileVisitResult.CONTINUE;
-                    } else {
-                        // Directory iteration failed
-                        throw exc;
                     }
-                }
-            });
+
+                    @Override
+                    public FileVisitResult visitFileFailed(Path file, IOException exc) {
+                        return FileVisitResult.CONTINUE;
+                    }
+
+                    @Override
+                    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                        if (exc == null) {
+                            Files.delete(dir);
+                            return FileVisitResult.CONTINUE;
+                        } else {
+                            throw exc;
+                        }
+                    }
+                });
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else {
-            System.out.println("Directory does not exist or is not a directory.");
+            System.out.println("Directory does not exist or is not a directory");
         }
     }
-
 
     private static String getNameLastDownloadedFile() {
         File directory = new File(Paths.get(DIR_PATH).toFile().getAbsolutePath());
         File[] files = directory.listFiles();
-        //return files[files.length - 1].getName();
         return files[0].getName();
     }
 }

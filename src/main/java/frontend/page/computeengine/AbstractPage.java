@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public abstract class AbstractPage {
     protected final int WAIT_TIMEOUT_SECONDS = 10;
     protected final Logger logger;
@@ -25,5 +27,13 @@ public abstract class AbstractPage {
 
     protected void clickWebElementByJS(WebElement element) {
         executor.executeScript("arguments[0].click();", element);
+    }
+
+    protected void waitForChangingData(int sec) {
+        try {
+            TimeUnit.SECONDS.sleep(sec);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

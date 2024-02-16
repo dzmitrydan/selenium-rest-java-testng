@@ -1,4 +1,4 @@
-package page.computeengine;
+package frontend.page.computeengine;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +14,7 @@ public class CostEstimateSummaryPage extends AbstractPage {
     }
 
     public double getCost() {
+        waitForChangingData(2);
         return Double.parseDouble(cost.getText().replace("$", ""));
     }
 }

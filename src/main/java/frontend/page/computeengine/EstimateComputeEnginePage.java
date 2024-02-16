@@ -1,4 +1,4 @@
-package page.computeengine;
+package frontend.page.computeengine;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class EstimateComputeEnginePage extends AbstractPage {
     private String selectOperatingSystemItemXpath = "//span[@class='VfPpkd-rymPhb-fpDzbe-fmcmS' and text()='%s']/../*";
+    private String provisioningModelButtonXpath = "//*[text()='%s']";
     private String numberOfInstancesId = "c7";
 
     @FindBy(xpath = "//div[@class='YgByBe']")
@@ -24,6 +25,9 @@ public class EstimateComputeEnginePage extends AbstractPage {
 
     @FindBy(xpath = "//span[@class='MyvX5d']")
     private WebElement cost;
+
+    @FindBy(xpath = "//*[text()='Service cost updated']")
+    private WebElement costUpdatedBanner;
 
     public EstimateComputeEnginePage(WebDriver driver) {
         super(driver);
@@ -41,13 +45,14 @@ public class EstimateComputeEnginePage extends AbstractPage {
     public EstimateComputeEnginePage selectOperatingSystem(String item) {
         By selectOperatingSystemItemBy = new By.ByXPath(String.format(selectOperatingSystemItemXpath, item));
         clickWebElementByJS(driver.findElement(selectOperatingSystemItemBy));
-        waitForChangingData(2);
+        wait.until(ExpectedConditions.visibilityOf(costUpdatedBanner));
         return this;
     }
 
     public EstimateComputeEnginePage clickDownloadCsv() {
+        waitForChangingData(2);
         downloadCsvButton.click();
-        waitForChangingData(1);
+        waitForChangingData(2);
         return this;
     }
 
@@ -58,14 +63,14 @@ public class EstimateComputeEnginePage extends AbstractPage {
     }
 
     public double getCost() {
+        waitForChangingData(2);
         return Double.parseDouble(cost.getText().replace("$", ""));
     }
 
-    private void waitForChangingData(int sec) {
-        try {
-            TimeUnit.SECONDS.sleep(sec);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public EstimateComputeEnginePage clickProvisioningModelButton(String provisioningModel) {
+        String provisioningModelXpath = String.format(provisioningModelButtonXpath, provisioningModel);
+        driver.findElement(By.xpath(provisioningModelXpath)).click();
+        wait.until(ExpectedConditions.visibilityOf(costUpdatedBanner));
+        return this;
     }
 }

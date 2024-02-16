@@ -1,4 +1,4 @@
-package page.computeengine;
+package frontend.page.computeengine;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

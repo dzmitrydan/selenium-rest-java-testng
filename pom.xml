@@ -36,7 +36,14 @@
     <dependency>
       <groupId>com.opencsv</groupId>
       <artifactId>opencsv</artifactId>
-      <version>5.5</version> <!-- Check for the latest version on Maven Central -->
+      <version>5.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>5.4.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

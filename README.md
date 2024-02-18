@@ -23,7 +23,7 @@
 #### Run tests
 Run UI tests:
 ```
-mvn clean test -Dbrowsermode.headless=false -Dsurefire.suiteXmlFiles=src/test/resources/suites/computeEngineTests.xml
+mvn clean test -Dbrowsermode.headless=true -Dsurefire.suiteXmlFiles=src/test/resources/suites/computeEngineTests.xml
 ```
 Run UI tests:
 ```

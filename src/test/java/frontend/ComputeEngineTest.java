@@ -7,7 +7,8 @@ import frontend.page.computeengine.CalculatorPage;
 import frontend.page.computeengine.EstimateComputeEnginePage;
 import frontend.utility.CSVFileReader;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ComputeEngineTest extends BaseTest {
 
@@ -50,5 +51,27 @@ public class ComputeEngineTest extends BaseTest {
                 .clickOpenDetailedView()
                 .getCost();
         Assert.assertEquals(actualPrice, expectedPrice);
+    }
+
+    @Test
+    public void checkCostChanged() {
+        String operatingSystem = "Paid: SLES 12 for SAP";
+        boolean costChanged = new CalculatorPage(driver)
+                .openPage()
+                .clickAddYoEstimateButton()
+                .openComputeEngineSection()
+                .selectOperatingSystem(operatingSystem)
+                .isCostChangedTo(386.9);
+        Assert.assertTrue(costChanged);
+    }
+
+    @Test
+    public void checkSectionsSorting() {
+        CalculatorPage pageWithSectionNames = new CalculatorPage(driver).openPage()
+                .clickAddYoEstimateButton();
+        List<String> listBeforeFilter = pageWithSectionNames.getSectionNameList();
+        List<String> listAfterFilter = pageWithSectionNames.selectFilterSortBy("Product name")
+                .getSectionNameList();
+        Assert.assertEquals(listAfterFilter, listBeforeFilter.stream().sorted().collect(Collectors.toList()));
     }
 }

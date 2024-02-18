@@ -5,7 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class CalculatorPage extends AbstractPage {
+    private String dropdownFilterSortByItemXpath = "//*[@role='menuitem']//*[text()='%s']";
 
     @FindBy(xpath = "//*[text()='Add to estimate']")
     private WebElement addToEstimateButton;
@@ -15,6 +19,12 @@ public class CalculatorPage extends AbstractPage {
 
     @FindBy(xpath = "//h1")
     private WebElement greetingTitle;
+
+    @FindBy(xpath = "//*[@class='honxjf']")
+    private List<WebElement> buttonsOfSection;
+
+    @FindBy(xpath = "//*[@aria-label='Sort by']")
+    private WebElement filterSortBy;
 
     public CalculatorPage(WebDriver driver) {
         super(driver);
@@ -43,5 +53,16 @@ public class CalculatorPage extends AbstractPage {
 
     public String getPageUrl() {
         return driver.getCurrentUrl();
+    }
+
+    public List<String> getSectionNameList() {
+        return wait.until(ExpectedConditions.visibilityOfAllElements(buttonsOfSection))
+                .stream().map(WebElement::getText).collect(Collectors.toList());
+    }
+
+    public CalculatorPage selectFilterSortBy(String filter) {
+        selectDropdown(filterSortBy, dropdownFilterSortByItemXpath, filter);
+        waitForChangingData(2);
+        return this;
     }
 }

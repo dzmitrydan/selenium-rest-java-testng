@@ -1,21 +1,19 @@
 package frontend.page.computeengine;
 
+import frontend.utility.CustomWait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 public class EstimateComputeEnginePage extends AbstractPage {
     private String selectOperatingSystemItemXpath = "//span[@class='VfPpkd-rymPhb-fpDzbe-fmcmS' and text()='%s']/../*";
     private String provisioningModelButtonXpath = "//*[text()='%s']";
     private String numberOfInstancesId = "c7";
 
-    @FindBy(xpath = "//div[@class='YgByBe']")
-    private List<WebElement> selectOperatingSystem;
+    @FindBy(xpath = "//*[@placeholder-id='ucc-24']")
+    private WebElement selectOperatingSystemDropdown;
 
     @FindBy(xpath = "//*[text()='Download .csv']/ancestor::span")
     private WebElement downloadCsvButton;
@@ -43,8 +41,7 @@ public class EstimateComputeEnginePage extends AbstractPage {
     }
 
     public EstimateComputeEnginePage selectOperatingSystem(String item) {
-        By selectOperatingSystemItemBy = new By.ByXPath(String.format(selectOperatingSystemItemXpath, item));
-        clickWebElementByJS(driver.findElement(selectOperatingSystemItemBy));
+        selectDropdown(selectOperatingSystemDropdown, selectOperatingSystemItemXpath, item);
         wait.until(ExpectedConditions.visibilityOf(costUpdatedBanner));
         return this;
     }
@@ -72,5 +69,10 @@ public class EstimateComputeEnginePage extends AbstractPage {
         driver.findElement(By.xpath(provisioningModelXpath)).click();
         wait.until(ExpectedConditions.visibilityOf(costUpdatedBanner));
         return this;
+    }
+
+    public boolean isCostChangedTo(double checkedCost) {
+        CustomWait.waitForTextToBe(driver, cost, String.format("$%.2f", checkedCost), 5);
+        return true;
     }
 }

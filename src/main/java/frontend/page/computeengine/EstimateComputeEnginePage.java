@@ -74,10 +74,5 @@ public class EstimateComputeEnginePage extends AbstractPage {
     public boolean isCostChangedTo(double checkedCost) {
         CustomWait.waitForTextToBe(driver, cost, String.format("$%.2f", checkedCost), 5);
         return true;
-    public EstimateComputeEnginePage clickProvisioningModelButton(String provisioningModel) {
-        String provisioningModelXpath = String.format(provisioningModelButtonXpath, provisioningModel);
-        driver.findElement(By.xpath(provisioningModelXpath)).click();
-        wait.until(ExpectedConditions.visibilityOf(costUpdatedBanner));
-        return this;
     }
 }

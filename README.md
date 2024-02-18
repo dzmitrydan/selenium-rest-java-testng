@@ -23,7 +23,7 @@
 #### Run tests
 Run UI tests:
 ```
-mvn clean test -Dbrowsermode.headless=false -Dsurefire.suiteXmlFiles=src/test/resources/suites/computeEngineTests.xml
+mvn clean test -Dbrowsermode.headless=true -Dsurefire.suiteXmlFiles=src/test/resources/suites/uiEngineTests.xml
 ```
 Run UI tests:
 ```
@@ -32,8 +32,4 @@ mvn clean test -Dbrowsermode.headless=false -Dsurefire.suiteXmlFiles=src/test/re
 Run API tests:
 ```
 mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/suites/apiTests.xml
-```
-Run all tests:
-```
-mvn clean test -Dbrowsermode.headless=true -Dsurefire.suiteXmlFiles=src/test/resources/suites/allTests.xml
 ```

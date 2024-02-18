@@ -27,5 +27,5 @@ jobs:
     - name: Run UI (Selenium) Tests
       run: mvn clean test
         -Dbrowsermode.headless=true
-        -Dsurefire.suiteXmlFiles=src/test/resources/suites/computeEngineTests.xml
+        -Dsurefire.suiteXmlFiles=src/test/resources/suites/uiTests.xml
         --file pom.xml

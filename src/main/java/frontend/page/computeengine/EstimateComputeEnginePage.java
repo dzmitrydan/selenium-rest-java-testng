@@ -66,7 +66,7 @@ public class EstimateComputeEnginePage extends AbstractPage {
 
     public EstimateComputeEnginePage clickProvisioningModelButton(String provisioningModel) {
         String provisioningModelXpath = String.format(provisioningModelButtonXpath, provisioningModel);
-        driver.findElement(By.xpath(provisioningModelXpath)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(provisioningModelXpath))).click();
         wait.until(ExpectedConditions.visibilityOf(costUpdatedBanner));
         return this;
     }

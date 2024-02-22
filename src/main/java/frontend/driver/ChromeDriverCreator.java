@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChromeDriverCreator implements WebDriverFactoryMethod {
+public class ChromeDriverCreator implements WebDriverFactory {
 
     @Override
     public WebDriver createWebDriver() {

@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="ComputeEngine Tests" thread-count="2" parallel="classes">
+<suite name="UI Tests">
     <test name="ComputeEnginePage Test">
         <classes>
             <class name="frontend.ComputeEngineTest">

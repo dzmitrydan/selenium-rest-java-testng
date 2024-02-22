@@ -3,17 +3,19 @@ package frontend.driver;
 import org.openqa.selenium.WebDriver;
 import frontend.utility.PropertyFileReader;
 
-public class DriverSingleton {
+import java.util.Objects;
+
+public class DriverManager {
     private static WebDriver driver;
 
-    private DriverSingleton() {
+    private DriverManager() {
     }
 
     public static synchronized WebDriver getDriver() {
         if (null == driver) {
-            WebDriverFactoryMethod creator;
+            WebDriverFactory creator;
             String browser = PropertyFileReader.getProperty("environment.browser");
-            switch (browser) {
+            switch (Objects.requireNonNull(browser)) {
                 case "firefox": {
                     creator = new FirefoxDriverCreator();
                     break;

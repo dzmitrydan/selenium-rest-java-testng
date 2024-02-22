@@ -6,7 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import java.nio.file.Paths;
 
-public class FirefoxDriverCreator implements WebDriverFactoryMethod {
+public class FirefoxDriverCreator implements WebDriverFactory {
 
     @Override
     public WebDriver createWebDriver() {

@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class EstimateComputeEnginePage extends AbstractPage {
     private String selectOperatingSystemItemXpath = "//span[@class='VfPpkd-rymPhb-fpDzbe-fmcmS' and text()='%s']/../*";
     private String provisioningModelButtonXpath = "//*[text()='%s']";
-    private String numberOfInstancesId = "c7";
+    private String numberOfInstancesId = "c11";
 
     @FindBy(xpath = "//*[@placeholder-id='ucc-24']")
     private WebElement selectOperatingSystemDropdown;

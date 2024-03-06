@@ -1,4 +1,4 @@
-package frontend.utility;
+package frontend.utils;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;

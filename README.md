@@ -5,6 +5,7 @@
 - Java
 - Maven
 - TestNG
+- Spring Boot
 
 #### Test launch options (Selenium tests):
 - Browser:

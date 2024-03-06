@@ -1,4 +1,4 @@
-package frontend.utility;
+package frontend.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;

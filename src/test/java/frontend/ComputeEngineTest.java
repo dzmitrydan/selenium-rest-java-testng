@@ -2,6 +2,7 @@ package frontend;
 
 import frontend.pages.CalculatorPage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -27,7 +28,7 @@ public class ComputeEngineTest extends BaseTest {
                 {1, "Paid: Red Hat Enterprise Linux", "Regular"}
         };
     }
-
+    @DirtiesContext
     @Test(dataProvider = "operatingSystem")
     public void checkCostFromDownloadCsv(int numberOfInstances, String operatingSystem, String provisioningModel) {
         EstimateComputeEnginePage estimateComputeEnginePage = calculatorPage.openPage()
@@ -43,6 +44,7 @@ public class ComputeEngineTest extends BaseTest {
         Assert.assertEquals(actualPrice, expectedPrice);
     }
 
+    @DirtiesContext
     @Test
     public void checkCostFromCostEstimateSummaryPage() {
         int numberOfInstances = 2;
@@ -60,6 +62,7 @@ public class ComputeEngineTest extends BaseTest {
         Assert.assertEquals(actualPrice, expectedPrice);
     }
 
+    @DirtiesContext
     @Test
     public void checkCostChanged() {
         String operatingSystem = "Paid: SLES 12 for SAP";
@@ -71,6 +74,7 @@ public class ComputeEngineTest extends BaseTest {
         Assert.assertTrue(costChanged);
     }
 
+    @DirtiesContext
     @Test
     public void checkSectionsSorting() {
         CalculatorPage pageWithSectionNames = calculatorPage.openPage()

@@ -1,16 +1,21 @@
-package frontend.page.computeengine;
+package frontend.pages;
 
-import frontend.utility.CustomWait;
+import frontend.components.Dropdown;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class EstimateComputeEnginePage extends AbstractPage {
-    private String selectOperatingSystemItemXpath = "//span[@class='VfPpkd-rymPhb-fpDzbe-fmcmS' and text()='%s']/../*";
-    private String provisioningModelButtonXpath = "//*[text()='%s']";
-    private String numberOfInstancesId = "c11";
+import static frontend.driver.DriverManager.getDriver;
+import static frontend.utils.CustomWait.waitForTextToBe;
+
+@Component
+public class EstimateComputeEnginePage extends BasePage {
+    private static final String SELECT_OPERATING_SYSTEM_ITEM_XPATH = "//span[@class='VfPpkd-rymPhb-fpDzbe-fmcmS' and text()='%s']/../*";
+    private static final String PROVISIONING_MODEL_BUTTON_XPATH = "//*[text()='%s']";
+    private static final String NUMBER_OF_INSTANCES_ID = "c11";
 
     @FindBy(xpath = "//*[@placeholder-id='ucc-24']")
     private WebElement selectOperatingSystemDropdown;
@@ -27,21 +32,20 @@ public class EstimateComputeEnginePage extends AbstractPage {
     @FindBy(xpath = "//*[text()='Service cost updated']")
     private WebElement costUpdatedBanner;
 
-    public EstimateComputeEnginePage(WebDriver driver) {
-        super(driver);
-    }
+    @Autowired
+    private Dropdown dropdown;
 
     public EstimateComputeEnginePage inputNumberOfInstances(int number) {
-        By numberOfInstancesIdBy = new By.ById(numberOfInstancesId);
+        By numberOfInstancesIdBy = new By.ById(NUMBER_OF_INSTANCES_ID);
         wait.until(ExpectedConditions.presenceOfElementLocated(numberOfInstancesIdBy));
-        driver.findElement(numberOfInstancesIdBy).clear();
-        driver.findElement(numberOfInstancesIdBy).sendKeys(Integer.toString(number));
+        getDriver().findElement(numberOfInstancesIdBy).clear();
+        getDriver().findElement(numberOfInstancesIdBy).sendKeys(Integer.toString(number));
         waitForChangingData(2);
         return this;
     }
 
     public EstimateComputeEnginePage selectOperatingSystem(String item) {
-        selectDropdown(selectOperatingSystemDropdown, selectOperatingSystemItemXpath, item);
+        dropdown.selectDropdown(selectOperatingSystemDropdown, SELECT_OPERATING_SYSTEM_ITEM_XPATH, item);
         wait.until(ExpectedConditions.visibilityOf(costUpdatedBanner));
         return this;
     }
@@ -56,7 +60,7 @@ public class EstimateComputeEnginePage extends AbstractPage {
     public CostEstimateSummaryPage clickOpenDetailedView() {
         openDetailedViewButton.click();
         waitForChangingData(1);
-        return new CostEstimateSummaryPage(driver);
+        return new CostEstimateSummaryPage();
     }
 
     public double getCost() {
@@ -65,14 +69,14 @@ public class EstimateComputeEnginePage extends AbstractPage {
     }
 
     public EstimateComputeEnginePage clickProvisioningModelButton(String provisioningModel) {
-        String provisioningModelXpath = String.format(provisioningModelButtonXpath, provisioningModel);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(provisioningModelXpath))).click();
+        String provisioningModelXpath = String.format(PROVISIONING_MODEL_BUTTON_XPATH, provisioningModel);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(provisioningModelXpath))).click();
         wait.until(ExpectedConditions.visibilityOf(costUpdatedBanner));
         return this;
     }
 
     public boolean isCostChangedTo(double checkedCost) {
-        CustomWait.waitForTextToBe(driver, cost, String.format("$%.2f", checkedCost), 5);
+        waitForTextToBe(getDriver(), cost, String.format("$%.2f", checkedCost), 5);
         return true;
     }
 }

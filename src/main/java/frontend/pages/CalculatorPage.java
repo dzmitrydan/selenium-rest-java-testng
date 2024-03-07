@@ -1,15 +1,21 @@
-package frontend.page.computeengine;
+package frontend.pages;
 
-import org.openqa.selenium.WebDriver;
+import frontend.components.Dropdown;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CalculatorPage extends AbstractPage {
-    private String dropdownFilterSortByItemXpath = "//*[@role='menuitem']//*[text()='%s']";
+import static frontend.driver.DriverManager.getDriver;
+
+@Component
+public class CalculatorPage extends BasePage {
+    private static final String URL = "https://cloud.google.com/products/calculator/";
+    private static final String DROPDOWN_FILTER_SORT_BY_ITEM_XPATH = "//*[@role='menuitem']//*[text()='%s']";
 
     @FindBy(xpath = "//*[text()='Add to estimate']")
     private WebElement addToEstimateButton;
@@ -26,13 +32,11 @@ public class CalculatorPage extends AbstractPage {
     @FindBy(xpath = "//*[@aria-label='Sort by']")
     private WebElement filterSortBy;
 
-    public CalculatorPage(WebDriver driver) {
-        super(driver);
-    }
+    @Autowired
+    private Dropdown dropdown;
 
     public CalculatorPage openPage() {
-        String url = "https://cloud.google.com/products/calculator/";
-        driver.get(url);
+        getDriver().get(URL);
         return this;
     }
 
@@ -48,11 +52,11 @@ public class CalculatorPage extends AbstractPage {
     public EstimateComputeEnginePage openComputeEngineSection() {
         wait.until(ExpectedConditions.elementToBeClickable(buttonComputeEngineSection)).click();
         wait.until(ExpectedConditions.titleIs("Google Cloud Pricing Calculator"));
-        return new EstimateComputeEnginePage(driver);
+        return new EstimateComputeEnginePage();
     }
 
     public String getPageUrl() {
-        return driver.getCurrentUrl();
+        return getDriver().getCurrentUrl();
     }
 
     public List<String> getSectionNameList() {
@@ -61,7 +65,7 @@ public class CalculatorPage extends AbstractPage {
     }
 
     public CalculatorPage selectFilterSortBy(String filter) {
-        selectDropdown(filterSortBy, dropdownFilterSortByItemXpath, filter);
+        dropdown.selectDropdown(filterSortBy, DROPDOWN_FILTER_SORT_BY_ITEM_XPATH, filter);
         waitForChangingData(2);
         return this;
     }

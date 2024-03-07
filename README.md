@@ -5,6 +5,7 @@
 - Java
 - Maven
 - TestNG
+- Spring Boot
 
 #### Test launch options (Selenium tests):
 - Browser:
@@ -13,6 +14,10 @@
 - Browser mode
   - Headless
   - Not headless
+
+#### Spring Boot
+- Maven: [pom.xml](pom.xml)
+- Gradle: [build.gradle](readme-assets/build.gradle.txt)
 
 #### Using GitHub Actions for CI/CD
 - file: .github/workflows/**maven.yml**

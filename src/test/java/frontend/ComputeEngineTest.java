@@ -1,16 +1,24 @@
 package frontend;
 
+import frontend.pages.CalculatorPage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import frontend.page.computeengine.CalculatorPage;
-import frontend.page.computeengine.EstimateComputeEnginePage;
-import frontend.utility.CSVFileReader;
+import frontend.pages.EstimateComputeEnginePage;
+import frontend.utils.CSVFileReader;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ComputeEngineTest extends BaseTest {
+
+    @Autowired
+    private CalculatorPage calculatorPage;
+
+    @Autowired
+    private EstimateComputeEnginePage computeEnginePage;
 
     @DataProvider
     public Object[][] operatingSystem() {
@@ -20,13 +28,13 @@ public class ComputeEngineTest extends BaseTest {
                 {1, "Paid: Red Hat Enterprise Linux", "Regular"}
         };
     }
-
+    @DirtiesContext
     @Test(dataProvider = "operatingSystem")
     public void checkCostFromDownloadCsv(int numberOfInstances, String operatingSystem, String provisioningModel) {
-        EstimateComputeEnginePage estimateComputeEnginePage = new CalculatorPage(driver).openPage()
+        EstimateComputeEnginePage estimateComputeEnginePage = calculatorPage.openPage()
                 .clickAddYoEstimateButton()
-                .openComputeEngineSection()
-                .inputNumberOfInstances(numberOfInstances)
+                .openComputeEngineSection();
+        computeEnginePage.inputNumberOfInstances(numberOfInstances)
                 .selectOperatingSystem(operatingSystem)
                 .clickProvisioningModelButton(provisioningModel)
                 .clickDownloadCsv();
@@ -36,14 +44,15 @@ public class ComputeEngineTest extends BaseTest {
         Assert.assertEquals(actualPrice, expectedPrice);
     }
 
+    @DirtiesContext
     @Test
     public void checkCostFromCostEstimateSummaryPage() {
         int numberOfInstances = 2;
         String operatingSystem = "Paid: SLES 12 for SAP";
-        EstimateComputeEnginePage estimateComputeEnginePage = new CalculatorPage(driver).openPage()
+        EstimateComputeEnginePage estimateComputeEnginePage = calculatorPage.openPage()
                 .clickAddYoEstimateButton()
-                .openComputeEngineSection()
-                .inputNumberOfInstances(numberOfInstances)
+                .openComputeEngineSection();
+        computeEnginePage.inputNumberOfInstances(numberOfInstances)
                 .selectOperatingSystem(operatingSystem);
         double expectedPrice = estimateComputeEnginePage
                 .getCost();
@@ -53,21 +62,22 @@ public class ComputeEngineTest extends BaseTest {
         Assert.assertEquals(actualPrice, expectedPrice);
     }
 
+    @DirtiesContext
     @Test
     public void checkCostChanged() {
         String operatingSystem = "Paid: SLES 12 for SAP";
-        boolean costChanged = new CalculatorPage(driver)
-                .openPage()
+        calculatorPage.openPage()
                 .clickAddYoEstimateButton()
-                .openComputeEngineSection()
-                .selectOperatingSystem(operatingSystem)
+                .openComputeEngineSection();
+        boolean costChanged = computeEnginePage.selectOperatingSystem(operatingSystem)
                 .isCostChangedTo(386.9);
         Assert.assertTrue(costChanged);
     }
 
+    @DirtiesContext
     @Test
     public void checkSectionsSorting() {
-        CalculatorPage pageWithSectionNames = new CalculatorPage(driver).openPage()
+        CalculatorPage pageWithSectionNames = calculatorPage.openPage()
                 .clickAddYoEstimateButton();
         List<String> listBeforeFilter = pageWithSectionNames.getSectionNameList();
         List<String> listAfterFilter = pageWithSectionNames.selectFilterSortBy("Product name")

@@ -1,7 +1,7 @@
 package frontend.driver;
 
 import org.openqa.selenium.WebDriver;
-import frontend.utility.PropertyFileReader;
+import frontend.utils.PropertyFileReader;
 
 import java.util.Objects;
 
